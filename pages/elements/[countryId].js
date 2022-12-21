@@ -1,26 +1,33 @@
 import Head from 'next/head'
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 export async function getStaticPaths() {
     const res=await fetch("http://localhost:5000/item")
     const data= await res.json();
-
+    if (!data) {
+        return {
+            notFound: true
+        }
+    }
     const paths = data.map(e=>{
         return{
-        params:{country: e.id.toString()}
+        params:{countryId: e.id.toString()}
     }
     })
-    return{
-        paths,
-        fallback:  false  // 404page if no page with our url
-    }
+    return{paths, fallback:  false }
 }
 
 export const  getStaticProps =async (context)=>{
-    const id=context.params.country;
+    const id=context.params.countryId;
 
-    const res=await fetch(`http://localhost:5000/item/${id}`);
-    const data= await res.json();
+    const data=await (await fetch(`http://localhost:5000/item/${id}`))?.json();
+//    const data= await res.json();
+    if (!data) {
+        return {
+            notFound: true
+        }
+    }
 
     return {
         props: {country :data}
@@ -28,8 +35,13 @@ export const  getStaticProps =async (context)=>{
 }
 
 const oneCountry=({country})=> {
-    debugger
-    return (
+    const router = useRouter()
+
+    // Если страница еще не сгенерирована, будет отображаться это
+    // До тех пор, пока `getStaticProps` не закончит свою работу
+    if (router.isFallback) {
+        return <div>Загрузка...</div>
+    }else return (
         <>
             <Head>
                 <title>Country</title>

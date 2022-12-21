@@ -1,0 +1,12 @@
+.header{
+  background-color: darkturquoise;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  a{
+    text-decoration: none;
+    color: black;
+    &:hover{
+      color: brown;
+    }
+  }
+}

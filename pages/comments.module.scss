@@ -1,0 +1,11 @@
+.allComments{
+ text-align: center;
+ font-family: "Arial Black";
+}
+.oneComment{
+ padding: 15px;
+font-size: 12px;
+&:hover{
+ font-size: 14px;
+}
+}
