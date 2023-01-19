@@ -3,10 +3,30 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.scss'
 import Link from "next/link";
+import {FormattedMessage, FormattedNumber, IntlProvider} from "react-intl";
+import {useState} from "react";
 
-const inter = Inter({ subsets: ['latin'] })
 
+const messages = {
+    fr:{
+        myMessage: "Aujourd'hui, c'est le {ts, date, ::yyyyMMdd}",
+    },
+    pl:{
+        myMessage: "Dzisiaj jest {ts, date, ::yyyyMMdd}",
+    },
+    en:{
+        myMessage:"Today is {ts, date, ::yyyyMMdd}"
+    }
+
+}
+
+
+/*const messagesInPolish = {
+    myMessage: "Dzisiaj jest {ts, date, ::yyyyMMdd}",
+}*/
 export default function Home() {
+    const [lang,changeLeng]=useState("en")
+
   return (
     <>
       <Head>
@@ -18,6 +38,21 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.description}>
             main first
+            <button onClick={()=>changeLeng("fr")}>fr</button>
+            <button onClick={()=>changeLeng("en")}>en</button>
+            <button onClick={()=>changeLeng("pl")}>pl</button>
+            <IntlProvider messages={messages[lang]} locale={lang}  defaultLocale="en">
+                <p>
+                    <FormattedMessage
+                        id="myMessage"
+                        defaultMessage="Today is {ts, date, ::yyyyMMdd}"
+                        values={{ts: Date.now()}}
+                    />
+                    <br />
+                  {/*  <FormattedNumber value={19} style="currency" currency="EUR" />*/}
+                </p>
+            </IntlProvider>
+
         </div>
       </main>
     </>

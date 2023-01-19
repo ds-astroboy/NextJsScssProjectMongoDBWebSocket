@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "socketServer": "nodemon webSocketServer.js",
     "lint": "next lint",
     "json-server": "json-server --watch db.json --port 5000",
     "serve": "concurrently \"npm run dev\" \"npm run json-server\"",
@@ -13,12 +14,18 @@
   },
   "dependencies": {
     "@next/font": "13.0.7",
+    "cors": "^2.8.5",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
+    "express": "^4.18.2",
+    "mongodb": "^4.13.0",
     "next": "13.0.7",
-    "react": "18.2.0",
+    "nextjs-websocket": "^1.0.11",
+    "react": "^18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.3.1",
-    "sass": "^1.57.1"
+    "react-intl": "^6.2.5",
+    "sass": "^1.57.1",
+    "ws": "^8.12.0"
   }
 }
