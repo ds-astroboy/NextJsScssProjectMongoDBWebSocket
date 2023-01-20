@@ -1,8 +1,9 @@
+import { motion } from "framer-motion"
 
 export default  function Message(props){
-    return(<div >
+    return(<motion.div animate={{ color:'#ff2993'}}>
         <hr/>
         user:{props.userId} ,
         {props.message}
-    </div>)
+    </motion.div>)
 }
